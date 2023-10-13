@@ -1,0 +1,14 @@
+.box-board-game{
+    margin: 0 auto;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    border: 1px black solid;
+    height: 200px;
+    width: 200px;
+}
+
+.box-cell{
+    border: 1px black solid;
+}
