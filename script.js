@@ -7,32 +7,38 @@ const boardGame = (function(){
     const player1 = createPlayer("X");
     const player2 = createPlayer("O");
     let playerTurn = "X"
+    const setPlayerTurn = playerTurn == "X" ? "O" : "X";
     const boardCells = [
         null,null,null,
         null,null,null,
         null,null,null
     ]
-    const runPlayerTurn = function(){
+    const buttonStart = document.querySelector(".start")
+    const cellsDOM = document.querySelectorAll(".box-cell")
+
+    const runPlayerTurn = function(numCell, cell){
         if (playerTurn == "X") {
-            pickCell(prompt("give me a cell"))
-            playerTurn = "O"
+            pickCell(numCell, cell)
             checkVictory()
-        }
-        if (playerTurn == "O"){
-            pickCell(prompt("give me a cell"))
+        } else if (playerTurn == "O"){
+            pickCell(numCell, cell)
             playerTurn = "X"
             checkVictory()
         }
         return playerTurn
     }
-    const pickCell = function(numCell){
+    const pickCell = function(numCell, cell){
         switch (boardCells[numCell]) {
             case null:
                 boardCells[numCell] = playerTurn
+                cell.textContent = playerTurn
+                playerTurn = setPlayerTurn
                 break;
             case "X": case "O":
                 boardCells[numCell] = boardCells[numCell]
-                alert("Select a valid cell")
+                alert("please select another cell")
+                cellTextContent = playerTurn
+                playerTurn = playerTurn
                 break;
         } 
     }
@@ -87,7 +93,6 @@ const boardGame = (function(){
         {return endGame()}
         else {
             console.log("Not a winner yet")
-            runPlayerTurn()
         }    
     }
 
@@ -96,7 +101,16 @@ const boardGame = (function(){
         playerTurn = null
     }
 
-    runPlayerTurn()
+    const startListeners = (function(){
+            cellsDOM.forEach((cell)=>{
+                cell.addEventListener("click", ()=>{
+                    const cellId = cell.id
+                    runPlayerTurn(cellId, cell)
+                    console.log(boardCells)
+                })
+            })
+    })()
+    console.log(boardCells)
 })()
 
 
