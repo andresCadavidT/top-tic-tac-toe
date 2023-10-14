@@ -1,3 +1,7 @@
+body{
+    text-align: center;
+}
+
 .box-board-game{
     margin: 0 auto;
     margin-top: 50px;
@@ -7,6 +11,7 @@
     border: 1px black solid;
     height: 200px;
     width: 200px;
+    display: none;
 }
 
 .box-cell{

@@ -15,6 +15,7 @@ const boardGame = (function(){
     ]
     const buttonStart = document.querySelector(".start")
     const cellsDOM = document.querySelectorAll(".box-cell")
+    const boardOnDOM = document.querySelector(".box-board-game")
 
     const runPlayerTurn = function(numCell, cell){
         if (playerTurn == "X") {
@@ -46,49 +47,49 @@ const boardGame = (function(){
         if (
             (boardCells[0] == boardCells[1]
             && boardCells[1] == boardCells[2]
-            && boardCells[2] == ("X" || "Y")
+            && ((boardCells[2] == "X") || (boardCells[2] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[3] == boardCells[4]
             && boardCells[4] == boardCells[5]
-            && boardCells[5] == ("X" || "Y")
+            && ((boardCells[5] == "X") || (boardCells[5] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[6] == boardCells[7]
             && boardCells[7] == boardCells[8]
-            && boardCells[8] == ("X" || "Y")
+            && ((boardCells[8] == "X") || (boardCells[8] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[0] == boardCells[3]
             && boardCells[3] == boardCells[6]
-            && boardCells[6] == ("X" || "Y")
+            && ((boardCells[6] == "X") || (boardCells[6] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[1] == boardCells[4]
             && boardCells[4] == boardCells[7]
-            && boardCells[7] == ("X" || "Y")
+            && ((boardCells[7] == "X") || (boardCells[7] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[2] == boardCells[5]
             && boardCells[5] == boardCells[8]
-            && boardCells[8] == ("X" || "Y")
+            && ((boardCells[8] == "X") || (boardCells[8] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[6] == boardCells[4]
             && boardCells[4] == boardCells[2]
-            && boardCells[2] == ("X" || "Y")
+            && ((boardCells[2] == "X") || (boardCells[2] == "O"))
             ))
         {return endGame()}
         if (
             (boardCells[0] == boardCells[4]
             && boardCells[4] == boardCells[8]
-            && boardCells[8] == ("X" || "Y")
+            && ((boardCells[8] == "X") || (boardCells[8] == "O"))
             ))
         {return endGame()}
         else {
@@ -102,11 +103,14 @@ const boardGame = (function(){
     }
 
     const startListeners = (function(){
-            cellsDOM.forEach((cell)=>{
-                cell.addEventListener("click", ()=>{
-                    const cellId = cell.id
-                    runPlayerTurn(cellId, cell)
-                    console.log(boardCells)
+            buttonStart.addEventListener("click",()=>{
+                boardOnDOM.style.display = "grid";
+                cellsDOM.forEach((cell)=>{
+                    cell.addEventListener("click", ()=>{
+                        const cellId = cell.id
+                        runPlayerTurn(cellId, cell)
+                        console.log(boardCells)
+                    })
                 })
             })
     })()
