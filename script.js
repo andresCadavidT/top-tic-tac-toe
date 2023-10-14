@@ -1,51 +1,103 @@
+const createPlayer = function(symbol){
+    const playerName = symbol;
+    return {playerName}
+};
+
 const boardGame = (function(){
+    const player1 = createPlayer("X");
+    const player2 = createPlayer("O");
+    let playerTurn = "X"
     const boardCells = [
-        null,null,"X",
+        null,null,null,
         null,null,null,
         null,null,null
     ]
-    return {boardCells}
-})()
-
-const createPlayer = function(symbol){
-    const playerName = symbol;
-    const cell = boardGame.boardCells
+    const runPlayerTurn = function(){
+        if (playerTurn == "X") {
+            pickCell(prompt("give me a cell"))
+            playerTurn = "O"
+            checkVictory()
+        }
+        if (playerTurn == "O"){
+            pickCell(prompt("give me a cell"))
+            playerTurn = "X"
+            checkVictory()
+        }
+        return playerTurn
+    }
     const pickCell = function(numCell){
-        switch (cell[numCell]) {
+        switch (boardCells[numCell]) {
             case null:
-                cell[numCell] = playerName
+                boardCells[numCell] = playerTurn
                 break;
             case "X": case "O":
-                cell[numCell] = cell[numCell]
+                boardCells[numCell] = boardCells[numCell]
                 alert("Select a valid cell")
-                // ALGO QUE REPITA EL TURNO DEL JUGADOR ACUAL
                 break;
-        }   
+        } 
     }
-    return {playerName, pickCell}
-}
+    const checkVictory = function(){
+        if (
+            (boardCells[0] == boardCells[1]
+            && boardCells[1] == boardCells[2]
+            && boardCells[2] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[3] == boardCells[4]
+            && boardCells[4] == boardCells[5]
+            && boardCells[5] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[6] == boardCells[7]
+            && boardCells[7] == boardCells[8]
+            && boardCells[8] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[0] == boardCells[3]
+            && boardCells[3] == boardCells[6]
+            && boardCells[6] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[1] == boardCells[4]
+            && boardCells[4] == boardCells[7]
+            && boardCells[7] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[2] == boardCells[5]
+            && boardCells[5] == boardCells[8]
+            && boardCells[8] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[6] == boardCells[4]
+            && boardCells[4] == boardCells[2]
+            && boardCells[2] == ("X" || "Y")
+            ))
+        {return endGame()}
+        if (
+            (boardCells[0] == boardCells[4]
+            && boardCells[4] == boardCells[8]
+            && boardCells[8] == ("X" || "Y")
+            ))
+        {return endGame()}
+        else {
+            console.log("Not a winner yet")
+            runPlayerTurn()
+        }    
+    }
 
-const victory = function(){
-    console.log(boardGame.boardCells)
-    if (
-        boardGame.boardCells[0] == "X"
-        && boardGame.boardCells[1] == "X"
-        && boardGame.boardCells[2] == "X"
-        ){
-            console.log("WINNER PLAYER1")
-        }
-        else {}
-}
+    const endGame = function(){
+        console.log("endGame")
+        playerTurn = null
+    }
 
-const inicio = (function(){
-    const player1 = createPlayer("X");
-    const player2 = createPlayer("O");
-    player1.pickCell(2) 
-    // funcion que verifique si hay victoria o no. 
-    victory()
-    // Si no, ejecuta "player2.elegirCasilla("numero")"
-    // player2.pickCell(3)
-    //si, si, ejecuta WIN()
-
-    return(player1, player2)
+    runPlayerTurn()
 })()
+
+
+
