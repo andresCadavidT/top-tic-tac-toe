@@ -7,7 +7,9 @@ const boardGame = (function(){
     const player1 = createPlayer("X");
     const player2 = createPlayer("O");
     let playerTurn = "X"
-    const setPlayerTurn = playerTurn == "X" ? "O" : "X";
+    const setPlayerTurn = function(){
+        playerTurn = playerTurn == "X" ? "O" : "X";
+    } 
     const boardCells = [
         null,null,null,
         null,null,null,
@@ -16,30 +18,30 @@ const boardGame = (function(){
     const buttonStart = document.querySelector(".start")
     const cellsDOM = document.querySelectorAll(".box-cell")
     const boardOnDOM = document.querySelector(".box-board-game")
+    const resultDOM = document.querySelector(".result")
 
     const runPlayerTurn = function(numCell, cell){
         if (playerTurn == "X") {
             pickCell(numCell, cell)
             checkVictory()
+            console.log(playerTurn)
         } else if (playerTurn == "O"){
             pickCell(numCell, cell)
-            playerTurn = "X"
             checkVictory()
+            console.log(playerTurn)
         }
-        return playerTurn
     }
     const pickCell = function(numCell, cell){
         switch (boardCells[numCell]) {
             case null:
                 boardCells[numCell] = playerTurn
                 cell.textContent = playerTurn
-                playerTurn = setPlayerTurn
                 break;
             case "X": case "O":
                 boardCells[numCell] = boardCells[numCell]
                 alert("please select another cell")
                 cellTextContent = playerTurn
-                playerTurn = playerTurn
+                setPlayerTurn()
                 break;
         } 
     }
@@ -94,11 +96,13 @@ const boardGame = (function(){
         {return endGame()}
         else {
             console.log("Not a winner yet")
+            setPlayerTurn()
         }    
     }
 
     const endGame = function(){
         console.log("endGame")
+        resultDOM.textContent = "The Winner Is: " + playerTurn
         playerTurn = null
     }
 
